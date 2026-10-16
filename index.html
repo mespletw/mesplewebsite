@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mesple Wang｜理解你的專業，看見你的品牌</title>
+  <meta name="description" content="Mesple Wang｜跨領域內容整合、深度採訪、專業撰稿、品牌敘事、內容策略與整合行銷。專注科技、理財、藝術文化與生活風格領域。" />
+  <meta property="og:title" content="Mesple Wang｜理解您的專業，看見您的品牌" />
+  <meta property="og:description" content="以深度採訪、內容策略與跨媒體整合，將複雜專業轉化為清晰、有影響力的品牌敘事。" />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#ffffff" />
+
+  <!-- 字體：中文標題用 Noto Serif TC（編輯感），內文用 Noto Sans TC，英文數字用 Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { DEFAULT: '#005BAC', dark: '#0A3D91', soft: '#EAF5FF' },
+            violet: { DEFAULT: '#00A7B5' },
+            mint: { DEFAULT: '#7AC143' },
+            ink: { DEFAULT: '#1F2937', 700: '#334155', 500: '#6B7280', 300: '#D9E2EC' },
+            mist: '#F5F7FA'
+          },
+          fontFamily: {
+            sans: ['Inter', '"Noto Sans TC"', '"PingFang TC"', '"Microsoft JhengHei"', 'system-ui', 'sans-serif'],
+            serif: ['"Noto Serif TC"', '"Songti TC"', '"PMingLiU"', 'serif'],
+            mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace']
+          },
+          maxWidth: { prose2: '38rem' }
+        }
+      }
+    };
+  </script>
+
+  <!-- ================================================================
+       全域與自訂 CSS（Tailwind 不易處理的動畫、背景、按鈕細節）
+       ================================================================ -->
+  <style>
+    :root {
+      --brand: #005BAC;
+      --teal: #00A7B5;
+      --cyan: #5CC8D7;
+      --green: #7AC143;
+      --violet: #00A7B5;
+      --ink: #1F2937;
+      --nav-h: 72px;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: #ffffff; color: #1F2937; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    section[id] { scroll-margin-top: calc(var(--nav-h) + 8px); }
+    ::selection { background: rgba(37, 99, 235, .15); }
+
+    /* 焦點狀態：鍵盤操作清楚可見 */
+    :focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; border-radius: 6px; }
+
+    /* 跳至主要內容 */
+    .skip-link { position: absolute; left: 1rem; top: -100px; z-index: 100; background: #fff; padding: .6rem 1rem; border-radius: .5rem; box-shadow: 0 4px 20px rgba(15,23,42,.12); }
+    .skip-link:focus { top: 1rem; }
+
+    /* ---------- 背景：柔和光暈與網格 ---------- */
+    .hero-bg {
+      background:
+        radial-gradient(60rem 40rem at 85% -10%, rgba(37,99,235,.10), transparent 60%),
+        radial-gradient(40rem 30rem at -10% 30%, rgba(124,58,237,.07), transparent 60%),
+        linear-gradient(180deg, #f8fbff 0%, #ffffff 70%);
+    }
+    .grid-lines {
+      background-image:
+        linear-gradient(rgba(37,99,235,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37,99,235,.06) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(ellipse at 60% 30%, #000 20%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse at 60% 30%, #000 20%, transparent 70%);
+    }
+    .orb { position: absolute; border-radius: 9999px; filter: blur(60px); opacity: .45; animation: drift 22s ease-in-out infinite alternate; }
+    @keyframes drift { from { transform: translate3d(0,0,0) scale(1); } to { transform: translate3d(30px,-20px,0) scale(1.08); } }
+    #net { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+
+    /* ---------- 打字機效果（文字始終存在於 DOM，避免版面跳動與 SEO 問題） ---------- */
+    .typing .ch { opacity: 0; }
+    .typing .ch.on { opacity: 1; transition: opacity .12s ease; }
+    .tw-cursor { display: inline-block; width: 3px; height: .9em; margin-left: 4px; vertical-align: -0.08em; background: linear-gradient(var(--brand), var(--violet)); border-radius: 2px; animation: blink 1s steps(1) infinite; }
+    .tw-cursor.fade { animation: none; opacity: 0; transition: opacity .8s ease; }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* ---------- 按鈕 ---------- */
+    .btn {
+      position: relative; display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+      min-height: 48px; padding: .8rem 1.5rem; border-radius: 9999px; font-weight: 600; letter-spacing: .01em;
+      transition: transform .25s ease, box-shadow .25s ease, background-color .25s ease, color .25s ease;
+    }
+    .btn-primary { background: #0A3D91; color: #fff; box-shadow: 0 8px 24px -10px rgba(0,91,172,.6); }
+    .btn-primary:hover { background: var(--brand); transform: translateY(-2px); box-shadow: 0 14px 30px -12px rgba(37,99,235,.7); }
+    .btn-ghost {
+      color: #0A3D91;
+      background: linear-gradient(rgba(255,255,255,.85), rgba(255,255,255,.85)) padding-box,
+                  linear-gradient(120deg, var(--brand), var(--violet)) border-box;
+      border: 1.5px solid transparent;
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 4px 16px -8px rgba(37,99,235,.35);
+    }
+    .btn-ghost:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(#fff, #fff) padding-box,
+                  linear-gradient(120deg, var(--brand), var(--mint)) border-box;
+      box-shadow: 0 10px 28px -10px rgba(16,185,129,.45);
+    }
+    /* 狀態提示：絕對定位，不改變按鈕尺寸；僅在可 hover 的裝置顯示 */
+    .btn-status {
+      position: absolute; left: 50%; bottom: calc(100% + 10px); transform: translate(-50%, 4px);
+      white-space: nowrap; font: 500 11px/1 Inter, monospace; letter-spacing: .06em; color: #047857;
+      background: #ecfdf5; border: 1px solid #a7f3d0; padding: 6px 10px; border-radius: 9999px;
+      opacity: 0; pointer-events: none; transition: opacity .2s ease, transform .2s ease;
+    }
+    .btn-status::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--mint); margin-right: 6px; vertical-align: 1px; }
+    @media (hover: hover) {
+      .btn:hover .btn-status, .btn:focus-visible .btn-status { opacity: 1; transform: translate(-50%, 0); }
+    }
+
+    /* ---------- 導覽列 ---------- */
+    .nav { transition: background-color .3s ease, box-shadow .3s ease, border-color .3s ease; border-bottom: 1px solid transparent; }
+    .nav.scrolled { background: rgba(255,255,255,.78); backdrop-filter: saturate(160%) blur(14px); -webkit-backdrop-filter: saturate(160%) blur(14px); border-color: rgba(15,23,42,.06); box-shadow: 0 6px 24px -18px rgba(15,23,42,.25); }
+    .nav-link { position: relative; padding: .5rem 0; color: #334155; transition: color .2s ease; }
+    .nav-link::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1.5px; background: linear-gradient(90deg, var(--brand), var(--violet)); transform: scaleX(0); transform-origin: left; transition: transform .3s ease; }
+    .nav-link:hover, .nav-link.active { color: #1F2937; }
+    .nav-link:hover::after, .nav-link.active::after { transform: scaleX(1); }
+
+    .mobile-panel { transition: opacity .25s ease, transform .25s ease, visibility .25s; }
+    .mobile-panel[data-open="false"] { opacity: 0; transform: translateY(-8px); visibility: hidden; }
+    .mobile-panel[data-open="true"] { opacity: 1; transform: translateY(0); visibility: visible; }
+
+    /* ---------- 卡片 ---------- */
+    .card { background: #fff; border: 1px solid rgba(15,23,42,.08); border-radius: 1.25rem; transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease; }
+    .card:hover { transform: translateY(-4px); border-color: rgba(37,99,235,.28); box-shadow: 0 22px 40px -28px rgba(37,99,235,.45); }
+    .glass { background: rgba(255,255,255,.66); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,.8); }
+
+    .eyebrow { font: 600 12px/1 Inter, sans-serif; letter-spacing: .18em; text-transform: uppercase; color: var(--brand); }
+    .rule { height: 1px; background: linear-gradient(90deg, rgba(15,23,42,.14), rgba(15,23,42,0)); }
+    .tag { display: inline-flex; align-items: center; gap: .4rem; font: 500 12.5px/1 Inter, sans-serif; letter-spacing: .02em; color: #334155; padding: .55rem .85rem; border-radius: 9999px; border: 1px solid rgba(15,23,42,.1); background: rgba(255,255,255,.7); }
+    .tag i { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+    .badge-pending { font: 600 11px/1 Inter, sans-serif; letter-spacing: .04em; color: #92400e; background: #fffbeb; border: 1px dashed #f59e0b; padding: 5px 9px; border-radius: 9999px; }
+    .badge-sample { font: 600 11px/1 Inter, sans-serif; letter-spacing: .04em; color: #5b21b6; background: #f5f3ff; border: 1px dashed #a78bfa; padding: 5px 9px; border-radius: 9999px; }
+
+    /* 作品封面占位：資料流線條 */
+    .cover-ph { background: linear-gradient(135deg, #EAF5FF, #E0F8FA 60%, #F1F9E9); position: relative; overflow: hidden; }
+    .cover-ph::after { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(115deg, rgba(37,99,235,.08) 0 1px, transparent 1px 14px); }
+
+    /* 時間軸 */
+    .timeline-dot { width: 11px; height: 11px; border-radius: 50%; background: #fff; border: 2px solid var(--brand); box-shadow: 0 0 0 4px rgba(37,99,235,.08); }
+
+    /* ---------- 進場動畫：僅在 JS 啟用時隱藏，確保無 JS 時內容可見 ---------- */
+    .js .reveal { opacity: 0; transform: translateY(18px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1); }
+    .js .reveal.in { opacity: 1; transform: none; }
+    .js .reveal[data-delay="1"] { transition-delay: .08s; }
+    .js .reveal[data-delay="2"] { transition-delay: .16s; }
+    .js .reveal[data-delay="3"] { transition-delay: .24s; }
+    .js .reveal[data-delay="4"] { transition-delay: .32s; }
+
+    /* ---------- 減少動態效果 ---------- */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .js .reveal { opacity: 1 !important; transform: none !important; }
+      .typing .ch { opacity: 1 !important; }
+      .tw-cursor { display: none !important; }
+    }
+  </style>
+</head>
+
+<body class="font-sans">
+  <a href="#main" class="skip-link text-sm font-semibold text-brand-dark">跳至主要內容</a>
+
+  <!-- ================================================================
+       導覽列 NAV
+       ================================================================ -->
+  <header id="nav" class="nav fixed top-0 inset-x-0 z-50">
+    <nav class="mx-auto max-w-7xl px-5 sm:px-8 h-[72px] flex items-center justify-between" aria-label="主要導覽">
+      <a href="#home" class="flex items-center gap-2.5 group" aria-label="Mesple Wang 回到首頁">
+        <span class="relative inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-brand to-violet text-white text-sm font-bold">M</span>
+        <span class="font-semibold tracking-tight text-ink text-[17px]">Mesple Wang</span>
+      </a>
+
+      <ul class="hidden lg:flex items-center gap-8 text-[15px]">
+        <li><a class="nav-link" href="#about">關於我</a></li>
+        <li><a class="nav-link" href="#services">服務項目</a></li>
+        <li><a class="nav-link" href="#portfolio">作品集</a></li>
+        <li><a class="nav-link" href="#insights">觀點文章</a></li>
+        <li><a class="nav-link" href="#contact">聯絡我</a></li>
+      </ul>
+
+      <div class="flex items-center gap-3">
+        <a href="https://calendar.app.google/fT1T3cexstYQgAmh6" target="_blank" rel="noopener noreferrer"
+           class="btn btn-ghost hidden sm:inline-flex !min-h-[42px] !py-2 !px-5 text-sm" data-booking>
+          預約諮詢
+          <span class="sr-only">（另開新視窗）</span>
+        </a>
+        <button id="menuBtn" type="button" class="lg:hidden inline-flex h-11 w-11 items-center justify-center rounded-full border border-ink/10 bg-white/70"
+                aria-controls="mobileMenu" aria-expanded="false" aria-label="開啟選單">
+          <svg id="menuIconOpen" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+          <svg id="menuIconClose" class="hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- 行動版選單 -->
+    <div id="mobileMenu" class="mobile-panel lg:hidden absolute inset-x-3 top-[76px] rounded-2xl glass shadow-xl p-3" data-open="false">
+      <ul class="flex flex-col text-[16px]">
+        <li><a class="block rounded-xl px-4 py-3.5 hover:bg-brand-soft" href="#about">關於我</a></li>
+        <li><a class="block rounded-xl px-4 py-3.5 hover:bg-brand-soft" href="#services">服務項目</a></li>
+        <li><a class="block rounded-xl px-4 py-3.5 hover:bg-brand-soft" href="#portfolio">作品集</a></li>
+        <li><a class="block rounded-xl px-4 py-3.5 hover:bg-brand-soft" href="#insights">觀點文章</a></li>
+        <li><a class="block rounded-xl px-4 py-3.5 hover:bg-brand-soft" href="#contact">聯絡我</a></li>
+        <li class="pt-2">
+          <a href="https://calendar.app.google/fT1T3cexstYQgAmh6" target="_blank" rel="noopener noreferrer"
+             class="btn btn-primary w-full" data-booking>預約合作諮詢<span class="sr-only">（另開新視窗）</span></a>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ================================================================
+         01. 首頁 HERO
+         ================================================================ -->
+    <section id="home" class="hero-bg relative overflow-hidden pt-[72px]">
+      <div class="grid-lines absolute inset-0" aria-hidden="true"></div>
+      <div class="orb w-[28rem] h-[28rem] bg-brand/20 -top-24 right-[-6rem]" aria-hidden="true"></div>
+      <div class="orb w-[22rem] h-[22rem] bg-violet/15 bottom-[-6rem] left-[-4rem]" style="animation-delay:-8s" aria-hidden="true"></div>
+      <canvas id="net" aria-hidden="true"></canvas>
+
+      <div class="relative mx-auto max-w-7xl px-5 sm:px-8 min-h-[calc(100svh-72px)] flex flex-col justify-center py-16 sm:py-24">
+        <p class="eyebrow mb-6 reveal">Content Strategy · In-depth Interview · Brand Narrative</p>
+
+        <h1 id="heroTitle" class="font-serif font-black tracking-tight text-ink leading-[1.18] text-[2.6rem] sm:text-6xl lg:text-[5.4rem]">
+          <span class="tw-line block">理解您的專業，</span>
+          <span class="tw-line block text-brand-dark">看見您的品牌。</span>
+        </h1>
+
+        <p class="mt-8 max-w-2xl text-lg sm:text-xl leading-relaxed text-ink-700 reveal" data-delay="1">
+          以深度採訪、內容策略與跨媒體整合，將複雜專業轉化為清晰、有影響力的品牌敘事。
+        </p>
+        <p class="mt-3 max-w-2xl text-[15px] leading-relaxed text-ink-500 reveal" data-delay="1">
+          十年新聞採訪、科技傳播、刊物編輯與 Podcast 製作經驗，協助企業、組織與專業人士，把「做得好」變成「被理解、被記住」。
+        </p>
+
+        <div class="mt-10 flex flex-col sm:flex-row gap-4 reveal" data-delay="2">
+          <a href="#portfolio" class="btn btn-primary">
+            探索我的作品
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+          </a>
+          <a href="https://calendar.app.google/fT1T3cexstYQgAmh6" target="_blank" rel="noopener noreferrer" class="btn btn-ghost" data-booking>
+            <span class="btn-status" aria-hidden="true">Status: Ready to Connect</span>
+            預約合作諮詢
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>
+            <span class="sr-only">（另開新視窗）</span>
+          </a>
+        </div>
+
+        <!-- 核心專業領域 -->
+        <div class="mt-14 reveal" data-delay="3">
+          <p class="text-xs font-semibold tracking-[.18em] uppercase text-ink-500 mb-4">Core Domains｜核心領域</p>
+          <ul class="flex flex-wrap gap-2.5" aria-label="核心專業領域">
+            <li class="tag"><i style="background:#2563eb"></i>Technology｜科技</li>
+            <li class="tag"><i style="background:#7c3aed"></i>Finance｜理財與金融</li>
+            <li class="tag"><i style="background:#10b981"></i>Art &amp; Culture｜藝術與文化</li>
+            <li class="tag"><i style="background:#0ea5e9"></i>Lifestyle｜生活風格</li>
+          </ul>
+        </div>
+
+        <!-- 關鍵事實列 -->
+        <dl class="mt-14 grid grid-cols-1 sm:grid-cols-3 gap-px rounded-2xl overflow-hidden border border-ink/[.07] bg-ink/[.07] max-w-4xl reveal" data-delay="4">
+          <div class="bg-white/85 px-6 py-5">
+            <dt class="text-xs tracking-wide text-ink-500">內容產製與品牌溝通</dt>
+            <dd class="mt-1 font-semibold text-ink text-2xl font-[Inter]">10<span class="text-base font-medium text-ink-500 ml-1">年</span></dd>
+          </div>
+          <div class="bg-white/85 px-6 py-5">
+            <dt class="text-xs tracking-wide text-ink-500">《科技解壓縮》Podcast</dt>
+            <dd class="mt-1 font-semibold text-ink text-2xl font-[Inter]">Top 10<span class="text-base font-medium text-ink-500 ml-1.5">Apple Podcasts 科技類</span></dd>
+          </div>
+          <div class="bg-white/85 px-6 py-5">
+            <dt class="text-xs tracking-wide text-ink-500">職涯角色橫跨</dt>
+            <dd class="mt-1 font-semibold text-ink text-lg leading-snug">新聞・公關・刊物・聲音</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         02. 關於我 ABOUT
+         ================================================================ -->
+    <section id="about" class="relative py-24 sm:py-32 bg-white">
+      <div class="mx-auto max-w-7xl px-5 sm:px-8">
+
+        <!-- 開場理念 -->
+        <div class="grid lg:grid-cols-12 gap-10 lg:gap-16">
+          <div class="lg:col-span-4 reveal">
+            <p class="eyebrow">02 · About</p>
+            <h2 class="mt-4 font-serif text-3xl sm:text-4xl font-bold leading-snug text-ink">關於我｜Mesple Wang</h2>
+            <div class="rule mt-6 max-w-[8rem]"></div>
+          </div>
+          <div class="lg:col-span-8">
+            <p class="font-serif text-2xl sm:text-[2rem] leading-[1.6] text-ink reveal">
+              以內容創造價值，<br class="sm:hidden" />讓專業被理解，讓品牌被看見。
+            </p>
+            <h3 class="mt-10 text-lg font-bold text-ink reveal">跨領域內容整合，打造品牌溝通力</h3>
+            <p class="mt-3 text-[16.5px] leading-[1.95] text-ink-700 max-w-prose2 reveal">
+              我是 Mesple Wang，深耕內容產製與品牌溝通領域十年，專注於科技、文化與生活領域的內容包裝、敘事策劃與整合行銷。我擅長從複雜的資訊中提煉核心價值，將專業知識轉化為易於理解、值得傳播且具有影響力的內容，協助企業與品牌建立清晰的溝通定位，讓好技術、好理念與好故事被更多人看見。
+            </p>
+          </div>
+        </div>
+
+        <!-- 職涯歷程 -->
+        <div class="mt-24 grid lg:grid-cols-12 gap-10 lg:gap-16">
+          <div class="lg:col-span-4 reveal">
+            <p class="text-xs font-semibold tracking-[.18em] uppercase text-ink-500">Career Path</p>
+            <h3 class="mt-3 text-2xl font-bold text-ink leading-snug">橫跨媒體與科技產業，<br />兼具採訪深度與策略視野</h3>
+            <p class="mt-4 text-[15.5px] leading-[1.9] text-ink-700">
+              從第一線新聞採訪，到科技產業的公關傳播、專業刊物編輯與聲音內容製作，累積了從議題洞察、資訊梳理、內容企劃到品牌傳播的完整實務經驗，能夠兼顧內容的準確性、可讀性與傳播效益。
+            </p>
+          </div>
+
+          <ol class="lg:col-span-8 relative border-l border-ink/10 ml-1.5 space-y-10">
+            <li class="relative pl-8 reveal" data-delay="1">
+              <span class="timeline-dot absolute -left-[6.5px] top-1.5"></span>
+              <p class="font-mono text-xs text-brand tracking-wider">ROLE 01 · NEWS</p>
+              <h4 class="mt-1.5 text-lg font-bold text-ink">《自由時報》記者</h4>
+              <p class="mt-1.5 text-[15px] text-ink-700 leading-relaxed">第一線新聞採訪，建立議題洞察、事實查核與快速梳理資訊的基本功。</p>
+            </li>
+            <li class="relative pl-8 reveal" data-delay="2">
+              <span class="timeline-dot absolute -left-[6.5px] top-1.5"></span>
+              <p class="font-mono text-xs text-brand tracking-wider">ROLE 02 · PR</p>
+              <h4 class="mt-1.5 text-lg font-bold text-ink">工研院 公關</h4>
+              <p class="mt-1.5 text-[15px] text-ink-700 leading-relaxed">站在科技研發與大眾之間，負責科技產業的公關傳播。</p>
+            </li>
+            <li class="relative pl-8 reveal" data-delay="3">
+              <span class="timeline-dot absolute -left-[6.5px] top-1.5"></span>
+              <p class="font-mono text-xs text-brand tracking-wider">ROLE 03 · EDITORIAL</p>
+              <h4 class="mt-1.5 text-lg font-bold text-ink">工研院《工業技術與資訊》月刊 主編</h4>
+              <p class="mt-1.5 text-[15px] text-ink-700 leading-relaxed">主導專業刊物的內容企劃與編輯，將技術語言轉譯為讀者能理解的產業觀點。</p>
+            </li>
+            <li class="relative pl-8 reveal" data-delay="4">
+              <span class="timeline-dot absolute -left-[6.5px] top-1.5" style="border-color:#10b981;box-shadow:0 0 0 4px rgba(16,185,129,.1)"></span>
+              <p class="font-mono text-xs text-mint tracking-wider">ROLE 04 · AUDIO</p>
+              <h4 class="mt-1.5 text-lg font-bold text-ink">《科技解壓縮》Podcast 主持人</h4>
+              <p class="mt-1.5 text-[15px] text-ink-700 leading-relaxed">以聲音內容延伸科技議題的觸及範圍與溝通溫度。</p>
+            </li>
+          </ol>
+        </div>
+
+        <!-- 代表性專訪 + Podcast 成果 -->
+        <div class="mt-24 grid lg:grid-cols-12 gap-6">
+          <!-- 企業領袖專訪 -->
+          <article class="lg:col-span-7 rounded-3xl border border-ink/[.08] bg-mist p-8 sm:p-10 reveal">
+            <p class="text-xs font-semibold tracking-[.18em] uppercase text-ink-500">Leadership Interviews</p>
+            <h3 class="mt-3 text-2xl font-bold text-ink">深度採訪企業領袖，挖掘品牌核心價值</h3>
+            <p class="mt-4 text-[15.5px] leading-[1.9] text-ink-700">
+              曾親身採訪並撰寫台積電、宏碁、台北榮總、佳世達等企業與機構領袖的專訪內容。透過深入訪談與觀點梳理，挖掘領導者的思維、企業的核心競爭力，以及技術創新背後的價值與願景，將專業實力轉化為具有觀點、溫度與辨識度的品牌敘事。
+            </p>
+            <ul class="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-px bg-ink/10 rounded-2xl overflow-hidden" aria-label="曾採訪之企業與機構">
+              <li class="bg-white py-6 text-center font-serif text-lg font-bold text-ink">台積電</li>
+              <li class="bg-white py-6 text-center font-serif text-lg font-bold text-ink">宏碁</li>
+              <li class="bg-white py-6 text-center font-serif text-lg font-bold text-ink">台北榮總</li>
+              <li class="bg-white py-6 text-center font-serif text-lg font-bold text-ink">佳世達</li>
+            </ul>
+            <p class="mt-4 text-xs text-ink-500">＊以上為曾採訪其領袖之企業與機構名稱，屬採訪撰稿工作，非品牌商業合作聲明。</p>
+          </article>
+
+          <!-- Podcast 成果 -->
+          <article class="lg:col-span-5 relative overflow-hidden rounded-3xl p-8 sm:p-10 text-white reveal" data-delay="1"
+                   style="background: linear-gradient(150deg, #1e3a8a 0%, #2563eb 55%, #7c3aed 120%);">
+            <svg class="absolute -right-10 -bottom-10 opacity-20" width="260" height="260" viewBox="0 0 200 200" fill="none" stroke="white" stroke-width="1" aria-hidden="true">
+              <circle cx="100" cy="100" r="30"/><circle cx="100" cy="100" r="55"/><circle cx="100" cy="100" r="80"/><circle cx="100" cy="100" r="98"/>
+            </svg>
+            <p class="text-xs font-semibold tracking-[.18em] uppercase text-white/70">Podcast Highlight</p>
+            <h3 class="mt-3 text-2xl font-bold">《科技解壓縮》</h3>
+            <p class="mt-6 font-[Inter] text-5xl font-bold tracking-tight">Top 10</p>
+            <p class="mt-1 text-white/85">Apple Podcasts 科技類</p>
+            <p class="mt-6 text-[15px] leading-[1.9] text-white/85 relative">
+              好的內容不只是資訊的傳遞，更是品牌與受眾建立理解、信任與連結的起點。持續探索文字、聲音與跨媒體整合的可能性，讓內容不只被看見、被聽見，更能形成長期的品牌價值。
+            </p>
+          </article>
+        </div>
+
+        <!-- 工作核心 -->
+        <div class="mt-24 grid lg:grid-cols-12 gap-10 items-start">
+          <div class="lg:col-span-4 reveal">
+            <p class="text-xs font-semibold tracking-[.18em] uppercase text-ink-500">What I Connect</p>
+            <h3 class="mt-3 text-2xl font-bold text-ink">我的工作核心</h3>
+          </div>
+          <div class="lg:col-span-8">
+            <ul class="grid sm:grid-cols-3 gap-4">
+              <li class="card p-6 reveal" data-delay="1">
+                <p class="font-mono text-xs text-brand">01</p>
+                <p class="mt-2 text-lg font-bold text-ink">專業 × 受眾</p>
+              </li>
+              <li class="card p-6 reveal" data-delay="2">
+                <p class="font-mono text-xs text-violet">02</p>
+                <p class="mt-2 text-lg font-bold text-ink">內容 × 策略</p>
+              </li>
+              <li class="card p-6 reveal" data-delay="3">
+                <p class="font-mono text-xs text-mint">03</p>
+                <p class="mt-2 text-lg font-bold text-ink">創新 × 信任</p>
+              </li>
+            </ul>
+            <p class="mt-6 text-[16px] leading-[1.95] text-ink-700 max-w-prose2 reveal">
+              透過精準的內容定位、扎實的採訪編輯能力與整合行銷思維，讓每一個值得被傳遞的理念，都能找到最適合的表達方式，創造持續且具體的溝通價值。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         03. 服務項目 SERVICES
+         ================================================================ -->
+    <section id="services" class="relative py-24 sm:py-32 bg-mist overflow-hidden">
+      <div class="grid-lines absolute inset-0 opacity-60" aria-hidden="true"></div>
+      <div class="relative mx-auto max-w-7xl px-5 sm:px-8">
+        <div class="grid lg:grid-cols-12 gap-10 lg:gap-16">
+          <div class="lg:col-span-5 reveal">
+            <p class="eyebrow">03 · Services</p>
+            <h2 class="mt-4 font-serif text-3xl sm:text-4xl font-bold leading-snug text-ink">內容整合行銷</h2>
+            <p class="mt-3 text-lg text-ink-700 leading-relaxed">讓專業轉化為影響力，<br />讓內容創造品牌價值</p>
+          </div>
+          <div class="lg:col-span-7 space-y-5 text-[16px] leading-[1.95] text-ink-700 reveal" data-delay="1">
+            <p>在資訊快速流動的時代，好的內容不只是傳遞訊息，更是建立品牌信任、深化受眾連結與創造長期價值的關鍵。</p>
+            <p>憑藉十年新聞採訪、科技傳播、刊物編輯與 Podcast 製作經驗，專注於科技、理財、文化與生活等領域的內容整合行銷，從複雜資訊中提煉核心觀點，將艱深的知識轉化為清晰易懂、具有傳播力的內容，讓專業實力有效觸及目標受眾。</p>
+            <p>不只協助產出內容，更致力於<strong class="text-ink">建立可持續運作的內容機制</strong>，讓知識得以累積、觀點持續擴散，並將內容影響力轉化為品牌競爭力。</p>
+          </div>
+        </div>
+
+        <!-- 服務模組 -->
+        <div class="mt-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+          <article class="card p-7 flex flex-col reveal" data-delay="1">
+            <div class="h-11 w-11 rounded-xl bg-brand-soft text-brand flex items-center justify-center">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg>
+            </div>
+            <p class="mt-6 font-mono text-xs text-ink-500">SERVICE 01</p>
+            <h3 class="mt-1 text-xl font-bold text-ink">內容策略與整合行銷</h3>
+            <p class="mt-3 text-[15px] leading-[1.85] text-ink-700">從品牌定位與目標受眾出發，規劃內容主軸、形式組合與發布節奏，讓每一份內容都朝同一個溝通目標前進。</p>
+            <div class="mt-auto pt-6">
+              <div class="rule mb-4"></div>
+              <p class="text-xs font-semibold text-ink-500 tracking-wide">適合當你遇到</p>
+              <p class="mt-1.5 text-[14.5px] text-ink">內容做了很多，卻看不出累積與方向。</p>
+            </div>
+          </article>
+
+          <article class="card p-7 flex flex-col reveal" data-delay="2">
+            <div class="h-11 w-11 rounded-xl bg-brand-soft text-brand flex items-center justify-center">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+            </div>
+            <p class="mt-6 font-mono text-xs text-ink-500">SERVICE 02</p>
+            <h3 class="mt-1 text-xl font-bold text-ink">深度採訪與專業撰稿</h3>
+            <p class="mt-3 text-[15px] leading-[1.85] text-ink-700">以新聞採訪的提問與查證方法，深入梳理領導者觀點、技術脈絡與組織故事，撰寫準確且好讀的專訪與專文。</p>
+            <div class="mt-auto pt-6">
+              <div class="rule mb-4"></div>
+              <p class="text-xs font-semibold text-ink-500 tracking-wide">適合當你遇到</p>
+              <p class="mt-1.5 text-[14.5px] text-ink">技術或理念很強，但寫出來沒人看得懂。</p>
+            </div>
+          </article>
+
+          <article class="card p-7 flex flex-col reveal" data-delay="3">
+            <div class="h-11 w-11 rounded-xl bg-[#f5f3ff] text-violet flex items-center justify-center">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 19c4-1 6-4 7-8l2-6 2 6c1 4 3 7 7 8"/><path d="M8 15h8"/></svg>
+            </div>
+            <p class="mt-6 font-mono text-xs text-ink-500">SERVICE 03</p>
+            <h3 class="mt-1 text-xl font-bold text-ink">品牌敘事與內容包裝</h3>
+            <p class="mt-3 text-[15px] leading-[1.85] text-ink-700">提煉品牌的核心價值與差異化，建立一致的敘事架構與語言，讓企業理念轉化為有觀點、有溫度的故事。</p>
+            <div class="mt-auto pt-6">
+              <div class="rule mb-4"></div>
+              <p class="text-xs font-semibold text-ink-500 tracking-wide">適合當你遇到</p>
+              <p class="mt-1.5 text-[14.5px] text-ink">說不清楚自己和競爭者到底哪裡不同。</p>
+            </div>
+          </article>
+
+          <article class="card p-7 flex flex-col reveal" data-delay="1">
+            <div class="h-11 w-11 rounded-xl bg-[#f5f3ff] text-violet flex items-center justify-center">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>
+            </div>
+            <p class="mt-6 font-mono text-xs text-ink-500">SERVICE 04</p>
+            <h3 class="mt-1 text-xl font-bold text-ink">自媒體刊物與社群內容經營</h3>
+            <p class="mt-3 text-[15px] leading-[1.85] text-ink-700">協助規劃與發行自有刊物、電子報及社群內容，建立選題機制、編輯流程與發布節奏，讓內容可長期穩定運作。</p>
+            <div class="mt-auto pt-6">
+              <div class="rule mb-4"></div>
+              <p class="text-xs font-semibold text-ink-500 tracking-wide">適合當你遇到</p>
+              <p class="mt-1.5 text-[14.5px] text-ink">想經營自有媒體，但缺少編輯方法與持續力。</p>
+            </div>
+          </article>
+
+          <article class="card p-7 flex flex-col reveal" data-delay="2">
+            <div class="h-11 w-11 rounded-xl bg-[#ecfdf5] text-mint flex items-center justify-center">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 12h2M7 8v8M11 5v14M15 9v6M19 11v2M21 12h0"/></svg>
+            </div>
+            <p class="mt-6 font-mono text-xs text-ink-500">SERVICE 05</p>
+            <h3 class="mt-1 text-xl font-bold text-ink">Podcast 節目企劃與內容設計</h3>
+            <p class="mt-3 text-[15px] leading-[1.85] text-ink-700">從節目定位、單元架構、來賓企劃到訪綱設計，以主持《科技解壓縮》的實戰經驗，打造有辨識度的聲音品牌。</p>
+            <div class="mt-auto pt-6">
+              <div class="rule mb-4"></div>
+              <p class="text-xs font-semibold text-ink-500 tracking-wide">適合當你遇到</p>
+              <p class="mt-1.5 text-[14.5px] text-ink">想做 Podcast，卻不確定要談什麼、怎麼談。</p>
+            </div>
+          </article>
+
+          <!-- 服務收尾：價值主張 + CTA -->
+          <aside class="rounded-[1.25rem] p-7 flex flex-col justify-between border border-brand/20 reveal" data-delay="3"
+                 style="background: linear-gradient(160deg, #eff6ff, #ffffff 60%, #f5f3ff);">
+            <p class="font-serif text-xl leading-[1.7] text-ink">「讓內容成為連結專業與受眾的橋梁，為品牌創造更具深度、廣度與持續性的價值。」</p>
+            <a href="https://calendar.app.google/fT1T3cexstYQgAmh6" target="_blank" rel="noopener noreferrer" class="btn btn-ghost mt-8 self-start" data-booking>
+              <span class="btn-status" aria-hidden="true">Status: Ready to Connect</span>
+              討論你的內容需求
+              <span class="sr-only">（另開新視窗）</span>
+            </a>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         04. 作品集 PORTFOLIO（內容由下方 PORTFOLIO_DATA 產生）
+         ================================================================ -->
+    <section id="portfolio" class="py-24 sm:py-32 bg-white">
+      <div class="mx-auto max-w-7xl px-5 sm:px-8">
+        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
+          <div class="reveal">
+            <p class="eyebrow">04 · Portfolio</p>
+            <h2 class="mt-4 font-serif text-3xl sm:text-4xl font-bold text-ink">作品集</h2>
+            <p class="mt-3 max-w-xl text-[16px] leading-relaxed text-ink-700">從企業領袖專訪到 Podcast 節目，呈現把專業轉化為好內容的實際成果。</p>
+          </div>
+          <p class="text-sm text-ink-500 reveal" data-delay="1">
+            <span class="badge-pending">待補</span> 標示之卡片為展示結構，作品資料補齊後即替換。
+          </p>
+        </div>
+
+        <div id="portfolioGrid" class="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <!-- 由 JavaScript 依 PORTFOLIO_DATA 渲染 -->
+        </div>
+        <noscript>
+          <p class="mt-10 text-ink-500">作品集內容需啟用 JavaScript 顯示。</p>
+        </noscript>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         05. 觀點與文章 INSIGHTS（內容由下方 INSIGHTS_DATA 產生）
+         ================================================================ -->
+    <section id="insights" class="py-24 sm:py-32 bg-mist">
+      <div class="mx-auto max-w-7xl px-5 sm:px-8">
+        <div class="grid lg:grid-cols-12 gap-6 items-end">
+          <div class="lg:col-span-7 reveal">
+            <p class="eyebrow">05 · Insights</p>
+            <h2 class="mt-4 font-serif text-3xl sm:text-4xl font-bold text-ink">觀點與文章</h2>
+            <p class="mt-3 max-w-xl text-[16px] leading-relaxed text-ink-700">科技與產業觀察、內容策略與品牌溝通，以及理財、文化與生活風格的長期思考。</p>
+          </div>
+          <ul class="lg:col-span-5 flex flex-wrap gap-2 lg:justify-end reveal" data-delay="1" aria-label="文章主題">
+            <li class="tag"><i style="background:#2563eb"></i>科技與產業</li>
+            <li class="tag"><i style="background:#7c3aed"></i>內容策略</li>
+            <li class="tag"><i style="background:#0ea5e9"></i>理財與金融</li>
+            <li class="tag"><i style="background:#10b981"></i>文化與生活</li>
+          </ul>
+        </div>
+
+        <div id="insightsGrid" class="mt-14 grid lg:grid-cols-12 gap-5">
+          <!-- 由 JavaScript 依 INSIGHTS_DATA 渲染 -->
+        </div>
+        <noscript>
+          <p class="mt-10 text-ink-500">文章列表需啟用 JavaScript 顯示。</p>
+        </noscript>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         06. 聯絡與合作 CONTACT
+         ================================================================ -->
+    <section id="content-services" class="py-24 sm:py-32 bg-white">
+      <div class="mx-auto max-w-7xl px-5 sm:px-8">
+        <div class="max-w-2xl reveal">
+          <p class="eyebrow">06 · Content Marketing</p>
+          <h2 class="mt-4 font-serif text-3xl sm:text-4xl font-bold leading-snug text-ink">內容策略與整合行銷服務</h2>
+          <p class="mt-4 text-[16px] leading-[1.9] text-ink-700">從策略規劃、深度採訪到自有媒體與聲音內容，打造具有長期價值的品牌敘事。</p>
+        </div>
+        <div class="mt-14 grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+          <article class="card p-7 sm:p-8 reveal" data-delay="1">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-soft text-brand text-xl" aria-hidden="true"><i class="fa-solid fa-bullseye"></i></div>
+            <h3 class="mt-6 text-xl font-bold leading-snug text-ink">內容策略與整合行銷</h3>
+            <p class="mt-4 text-[15px] leading-[1.9] text-ink-700">依據品牌階段與商業目標，規劃全年度或專案型內容傳播架構。整合文字、影音與跨平台管道，確保每一筆產出都具有戰略意義。</p>
+          </article>
+          <article class="card p-7 sm:p-8 reveal" data-delay="2">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-violet/10 text-violet text-xl" aria-hidden="true"><i class="fa-solid fa-microphone-lines"></i></div>
+            <h3 class="mt-6 text-xl font-bold leading-snug text-ink">深度採訪與專業撰稿</h3>
+            <p class="mt-4 text-[15px] leading-[1.9] text-ink-700">結合新聞記者的敏銳提問與研究能力，親身採訪企業領袖、技術專家或關鍵人物，梳理核心思維，產出具深度與溫度的旗艦文章。</p>
+          </article>
+          <article class="card p-7 sm:p-8 reveal" data-delay="3">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-500/10 text-sky-600 text-xl" aria-hidden="true"><i class="fa-solid fa-newspaper"></i></div>
+            <h3 class="mt-6 text-xl font-bold leading-snug text-ink">自媒體刊物與社群內容經營</h3>
+            <p class="mt-4 text-[15px] leading-[1.9] text-ink-700">專案刊物主編級經驗導入。從專題企劃、大綱規劃、稿件審定到排版美學監督，打造具長期收藏價值與影響力的企業自有媒體刊物。</p>
+          </article>
+          <article class="card p-7 sm:p-8 reveal" data-delay="4">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-mint/10 text-mint text-xl" aria-hidden="true"><i class="fa-solid fa-podcast"></i></div>
+            <h3 class="mt-6 text-xl font-bold leading-snug text-ink">Podcast 節目企劃與內容設計</h3>
+            <p class="mt-4 text-[15px] leading-[1.9] text-ink-700">憑藉《科技解壓縮》榮獲 Apple Podcasts 科技榜 Top 10 的實戰經驗，提供節目定位、人物訪綱規劃、說故事節奏與跨媒體聲量擴散策略。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="relative py-28 sm:py-36 overflow-hidden hero-bg">
+      <div class="grid-lines absolute inset-0" aria-hidden="true"></div>
+      <div class="relative mx-auto max-w-4xl px-5 sm:px-8 text-center">
+        <p class="eyebrow reveal">06 · Contact</p>
+        <h2 class="mt-6 font-serif text-3xl sm:text-5xl font-bold leading-[1.35] text-ink reveal" data-delay="1">
+          讓下一個值得被看見的專業，<br class="hidden sm:block" />從一次對話開始。
+        </h2>
+        <p class="mt-6 mx-auto max-w-2xl text-[16.5px] leading-[1.9] text-ink-700 reveal" data-delay="2">
+          無論是內容策略、深度採訪、品牌敘事或跨媒體內容合作，歡迎預約交流，討論如何讓專業價值轉化為更具影響力的品牌內容。
+        </p>
+        <div class="mt-12 reveal" data-delay="3">
+          <a href="https://calendar.app.google/fT1T3cexstYQgAmh6" target="_blank" rel="noopener noreferrer" class="btn btn-primary !px-8 !min-h-[54px] text-[17px]" data-booking>
+            預約合作諮詢
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>
+            <span class="sr-only">（另開新視窗，前往 Google 日曆預約頁面）</span>
+          </a>
+          <p class="mt-4 text-sm text-ink-500">將開啟 Google 日曆預約頁面，選擇方便的時段即可。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================================================================
+       頁尾 FOOTER
+       ================================================================ -->
+  <footer class="bg-white border-t border-ink/[.06]">
+    <div class="mx-auto max-w-7xl px-5 sm:px-8 py-12 flex flex-col md:flex-row gap-8 md:items-center md:justify-between">
+      <div>
+        <p class="font-semibold text-ink">Mesple Wang</p>
+        <p class="mt-1 text-sm text-ink-500">跨領域內容整合・深度採訪・品牌敘事</p>
+      </div>
+      <nav aria-label="頁尾導覽">
+        <ul class="flex flex-wrap gap-x-6 gap-y-3 text-sm text-ink-700">
+          <li><a class="hover:text-brand" href="#about">關於我</a></li>
+          <li><a class="hover:text-brand" href="#services">服務項目</a></li>
+          <li><a class="hover:text-brand" href="#portfolio">作品集</a></li>
+          <li><a class="hover:text-brand" href="#insights">觀點文章</a></li>
+          <li><a class="hover:text-brand" href="#contact">聯絡我</a></li>
+        </ul>
+      </nav>
+      <p class="text-sm text-ink-500">© <span id="year">2026</span> Mesple Wang. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- ================================================================
+       JavaScript
+       ================================================================ -->
+  <script>
+    /* ==============================================================
+       【可替換的內容資料】—— 修改作品與文章只需改這裡
+       --------------------------------------------------------------
+       欄位說明：
+         status : 'pending'（待補，展示結構）| 'sample'（示意）| 'live'（真實作品）
+         url    : 真實網址；留空 '' 則不產生連結，只顯示「連結待補」
+         cover  : 封面圖片網址；留空則使用預設線條封面
+       ============================================================== */
+    const BOOKING_URL = 'https://calendar.app.google/fT1T3cexstYQgAmh6';
+
+    const PORTFOLIO_DATA = [
+      {
+        category: '企業領袖與人物專訪',
+        type: 'Interview',
+        title: '【待補】企業領袖專訪作品名稱',
+        summary: '待補：受訪者、刊登媒體與專訪重點。可放台積電、宏碁、台北榮總、佳世達等專訪中可公開的代表作。',
+        url: '',
+        cover: '',
+        status: 'pending'
+      },
+      {
+        category: '科技與產業內容',
+        type: 'Tech & Industry',
+        title: '【待補】科技產業專題名稱',
+        summary: '待補：議題、產業別與內容形式（專題報導、技術解析、產業觀察等）。',
+        url: '',
+        cover: '',
+        status: 'pending'
+      },
+      {
+        category: '專業刊物與品牌內容',
+        type: 'Editorial',
+        title: '【待補】《工業技術與資訊》代表期別或專題',
+        summary: '待補：期別、專題企劃方向，以及擔任主編時負責的內容規劃。',
+        url: '',
+        cover: '',
+        status: 'pending'
+      },
+      {
+        category: 'Podcast 與跨媒體內容',
+        type: 'Podcast',
+        title: '【待補】《科技解壓縮》代表單集',
+        summary: '待補：單集名稱、來賓與主題，以及節目收聽連結。',
+        url: '',
+        cover: '',
+        status: 'pending'
+      }
+    ];
+
+    const INSIGHTS_DATA = [
+      {
+        category: '科技與產業觀察',
+        color: '#2563eb',
+        title: '【示意】文章標題待填',
+        excerpt: '示意卡片：此處放置文章摘要，約 60～90 字，說明這篇文章的核心觀點與讀者能獲得什麼。',
+        date: '',
+        url: '',
+        status: 'sample'
+      },
+      {
+        category: '內容策略與品牌溝通',
+        color: '#7c3aed',
+        title: '【示意】文章標題待填',
+        excerpt: '示意卡片：此處放置文章摘要。',
+        date: '',
+        url: '',
+        status: 'sample'
+      },
+      {
+        category: '理財與金融知識',
+        color: '#0ea5e9',
+        title: '【示意】文章標題待填',
+        excerpt: '示意卡片：此處放置文章摘要。',
+        date: '',
+        url: '',
+        status: 'sample'
+      },
+      {
+        category: '藝術、文化與生活風格',
+        color: '#10b981',
+        title: '【示意】文章標題待填',
+        excerpt: '示意卡片：此處放置文章摘要。',
+        date: '',
+        url: '',
+        status: 'sample'
+      }
+    ];
+
+    /* ==============================================================
+       工具函式
+       ============================================================== */
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    document.documentElement.classList.add('js');
+
+    function escapeHTML(str) {
+      return String(str).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    }
+    function statusBadge(status) {
+      if (status === 'pending') return '<span class="badge-pending">待補</span>';
+      if (status === 'sample') return '<span class="badge-sample">示意</span>';
+      return '';
+    }
+    // 只有提供真實 url 時才產生連結；否則顯示不可點的狀態文字（避免假連結）
+    function entryLink(url, label) {
+      if (url) {
+        return `<a href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-sm font-semibold text-brand hover:text-brand-dark">
+                  ${label}
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>
+                  <span class="sr-only">（另開新視窗）</span>
+                </a>`;
+      }
+      return '<span class="text-sm text-ink-500">連結待補</span>';
+    }
+
+    /* ==============================================================
+       作品集渲染
+       ============================================================== */
+    function renderPortfolio() {
+      const grid = document.getElementById('portfolioGrid');
+      if (!grid) return;
+      grid.innerHTML = PORTFOLIO_DATA.map((item, i) => {
+        const cover = item.cover
+          ? `<img src="${escapeHTML(item.cover)}" alt="" class="h-full w-full object-cover" loading="lazy" />`
+          : `<div class="cover-ph h-full w-full flex items-end p-5"><span class="relative z-10 font-mono text-[11px] tracking-wider text-brand-dark/70">${escapeHTML(item.type.toUpperCase())}</span></div>`;
+        return `
+          <article class="card overflow-hidden flex flex-col reveal" data-delay="${(i % 4) + 1}">
+            <div class="aspect-[4/3] border-b border-ink/[.06]">${cover}</div>
+            <div class="p-6 flex flex-col flex-1">
+              <div class="flex items-center justify-between gap-3">
+                <p class="text-xs font-semibold text-ink-500 tracking-wide">${escapeHTML(item.category)}</p>
+                ${statusBadge(item.status)}
+              </div>
+              <h3 class="mt-3 text-[17px] font-bold leading-snug text-ink">${escapeHTML(item.title)}</h3>
+              <p class="mt-2.5 text-[14.5px] leading-[1.8] text-ink-700">${escapeHTML(item.summary)}</p>
+              <div class="mt-auto pt-5">${entryLink(item.url, '閱讀作品')}</div>
+            </div>
+          </article>`;
+      }).join('');
+    }
+
+    /* ==============================================================
+       文章渲染（第一篇為大版面精選，其餘為雜誌式列表）
+       ============================================================== */
+    function renderInsights() {
+      const grid = document.getElementById('insightsGrid');
+      if (!grid || !INSIGHTS_DATA.length) return;
+      const [featured, ...rest] = INSIGHTS_DATA;
+      const dateHTML = d => d ? `<time class="text-xs text-ink-500 font-[Inter]">${escapeHTML(d)}</time>` : '<span class="text-xs text-ink-500">日期待填</span>';
+
+      const featuredHTML = `
+        <article class="lg:col-span-7 card p-8 sm:p-10 flex flex-col reveal">
+          <div class="flex items-center gap-3">
+            <span class="inline-block h-2 w-2 rounded-full" style="background:${featured.color}"></span>
+            <p class="text-xs font-semibold tracking-wide text-ink-500">${escapeHTML(featured.category)}｜精選</p>
+            ${statusBadge(featured.status)}
+          </div>
+          <h3 class="mt-6 font-serif text-2xl sm:text-3xl font-bold leading-snug text-ink">${escapeHTML(featured.title)}</h3>
+          <p class="mt-4 text-[15.5px] leading-[1.9] text-ink-700 max-w-prose2">${escapeHTML(featured.excerpt)}</p>
+          <div class="mt-auto pt-8 flex items-center justify-between gap-4">
+            ${dateHTML(featured.date)}
+            ${entryLink(featured.url, '閱讀全文')}
+          </div>
+        </article>`;
+
+      const listHTML = `
+        <div class="lg:col-span-5 card p-2 reveal" data-delay="1">
+          <ul class="divide-y divide-ink/[.07]">
+            ${rest.map(a => `
+              <li class="p-6">
+                <div class="flex items-center gap-3">
+                  <span class="inline-block h-2 w-2 rounded-full" style="background:${a.color}"></span>
+                  <p class="text-xs font-semibold tracking-wide text-ink-500">${escapeHTML(a.category)}</p>
+                  ${statusBadge(a.status)}
+                </div>
+                <h3 class="mt-2.5 text-[17px] font-bold leading-snug text-ink">${escapeHTML(a.title)}</h3>
+                <p class="mt-1.5 text-[14px] leading-[1.75] text-ink-700">${escapeHTML(a.excerpt)}</p>
+                <div class="mt-3 flex items-center justify-between gap-4">
+                  ${dateHTML(a.date)}
+                  ${entryLink(a.url, '閱讀')}
+                </div>
+              </li>`).join('')}
+          </ul>
+        </div>`;
+
+      grid.innerHTML = featuredHTML + (rest.length ? listHTML : '');
+    }
+
+    /* ==============================================================
+       打字機效果
+       - 文字一直存在於 DOM（SEO 與螢幕閱讀器可讀）
+       - 只切換透明度，不會造成版面跳動
+       - 減少動態效果時直接完整顯示
+       ============================================================== */
+    function initTypewriter() {
+      const title = document.getElementById('heroTitle');
+      if (!title || prefersReducedMotion) return;
+
+      const lines = title.querySelectorAll('.tw-line');
+      title.setAttribute('aria-label', Array.from(lines).map(l => l.textContent.trim()).join(''));
+      const chars = [];
+      lines.forEach(line => {
+        const text = line.textContent.trim();
+        line.textContent = '';
+        line.setAttribute('aria-hidden', 'true');
+        for (const c of text) {
+          const span = document.createElement('span');
+          span.className = 'ch';
+          span.textContent = c;
+          line.appendChild(span);
+          chars.push(span);
+        }
+      });
+
+      const cursor = document.createElement('span');
+      cursor.className = 'tw-cursor';
+      cursor.setAttribute('aria-hidden', 'true');
+      title.classList.add('typing');
+
+      let i = 0;
+      const step = () => {
+        if (i < chars.length) {
+          chars[i].classList.add('on');
+          chars[i].after(cursor);
+          const c = chars[i].textContent;
+          i++;
+          setTimeout(step, c === '，' ? 260 : 85);  // 逗號處稍作停頓，模擬自然節奏
+        } else {
+          setTimeout(() => cursor.classList.add('fade'), 1800);
+        }
+      };
+      setTimeout(step, 350);
+    }
+
+    /* ==============================================================
+       白色科技背景：低密度節點連線（Canvas）
+       ============================================================== */
+    function initNetwork() {
+      const canvas = document.getElementById('net');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const hero = document.getElementById('home');
+      let w, h, dpr, points = [], rafId = null, running = true;
+
+      function resize() {
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        w = hero.clientWidth; h = hero.clientHeight;
+        canvas.width = w * dpr; canvas.height = h * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        const count = Math.min(46, Math.round(w / 32));
+        points = Array.from({ length: count }, () => ({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: (Math.random() - .5) * .18,
+          vy: (Math.random() - .5) * .18,
+          r: Math.random() * 1.6 + .6
+        }));
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, w, h);
+        const maxDist = 140;
+        for (let a = 0; a < points.length; a++) {
+          const p = points[a];
+          for (let b = a + 1; b < points.length; b++) {
+            const q = points[b];
+            const dx = p.x - q.x, dy = p.y - q.y;
+            const dist = Math.hypot(dx, dy);
+            if (dist < maxDist) {
+              ctx.strokeStyle = `rgba(37,99,235,${(1 - dist / maxDist) * .12})`;
+              ctx.lineWidth = 1;
+              ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke();
+            }
+          }
+          ctx.fillStyle = 'rgba(37,99,235,.28)';
+          ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
+        }
+      }
+
+      function tick() {
+        points.forEach(p => {
+          p.x += p.vx; p.y += p.vy;
+          if (p.x < 0 || p.x > w) p.vx *= -1;
+          if (p.y < 0 || p.y > h) p.vy *= -1;
+        });
+        draw();
+        if (running) rafId = requestAnimationFrame(tick);
+      }
+
+      resize();
+      if (prefersReducedMotion) { draw(); }   // 只畫一張靜態圖
+      else { tick(); }
+
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => { resize(); if (prefersReducedMotion) draw(); }, 200);
+      });
+
+      // 離開首頁或分頁隱藏時暫停，節省效能
+      const toggle = on => {
+        if (prefersReducedMotion) return;
+        if (on && !running) { running = true; tick(); }
+        if (!on && running) { running = false; cancelAnimationFrame(rafId); }
+      };
+      document.addEventListener('visibilitychange', () => toggle(!document.hidden));
+      new IntersectionObserver(([e]) => toggle(e.isIntersecting)).observe(hero);
+    }
+
+    /* ==============================================================
+       導覽列：捲動背景、目前區塊高亮、行動版選單
+       ============================================================== */
+    function initNav() {
+      const nav = document.getElementById('nav');
+      const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 12);
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+
+      // 目前區塊高亮
+      const links = document.querySelectorAll('.nav-link');
+      const map = {};
+      links.forEach(l => { map[l.getAttribute('href').slice(1)] = l; });
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            links.forEach(l => { l.classList.remove('active'); l.removeAttribute('aria-current'); });
+            const link = map[e.target.id];
+            if (link) { link.classList.add('active'); link.setAttribute('aria-current', 'true'); }
+          }
+        });
+      }, { rootMargin: '-45% 0px -50% 0px' });
+      document.querySelectorAll('main section[id]').forEach(s => io.observe(s));
+
+      // 行動版選單
+      const btn = document.getElementById('menuBtn');
+      const panel = document.getElementById('mobileMenu');
+      const iconOpen = document.getElementById('menuIconOpen');
+      const iconClose = document.getElementById('menuIconClose');
+      const setMenu = open => {
+        panel.dataset.open = String(open);
+        btn.setAttribute('aria-expanded', String(open));
+        btn.setAttribute('aria-label', open ? '關閉選單' : '開啟選單');
+        iconOpen.classList.toggle('hidden', open);
+        iconClose.classList.toggle('hidden', !open);
+        if (open) nav.classList.add('scrolled'); else onScroll();
+      };
+      btn.addEventListener('click', () => setMenu(panel.dataset.open !== 'true'));
+      panel.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && panel.dataset.open === 'true') { setMenu(false); btn.focus(); }
+      });
+      document.addEventListener('click', e => {
+        if (panel.dataset.open === 'true' && !panel.contains(e.target) && !btn.contains(e.target)) setMenu(false);
+      });
+      window.matchMedia('(min-width: 1024px)').addEventListener('change', e => { if (e.matches) setMenu(false); });
+    }
+
+    /* ==============================================================
+       區塊進場動畫
+       ============================================================== */
+    function initReveal() {
+      const els = document.querySelectorAll('.reveal');
+      if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+        els.forEach(el => el.classList.add('in'));
+        return;
+      }
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      }, { threshold: .12, rootMargin: '0px 0px -40px 0px' });
+      els.forEach(el => io.observe(el));
+    }
+
+    /* ==============================================================
+       統一預約網址：所有 data-booking 按鈕都套用 BOOKING_URL
+       ============================================================== */
+    function initBooking() {
+      document.querySelectorAll('[data-booking]').forEach(a => {
+        a.href = BOOKING_URL;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+      });
+    }
+
+    /* ==============================================================
+       啟動
+       ============================================================== */
+    document.getElementById('year').textContent = new Date().getFullYear();
+    renderPortfolio();
+    renderInsights();
+    initBooking();
+    initTypewriter();
+    initNetwork();
+    initNav();
+    initReveal();
+  </script>
+</body>
+</html>
